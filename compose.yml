@@ -1,0 +1,13 @@
+include:
+  - path: ./kafka/compose.yml
+  - path: ./nifi/compose.yml
+
+  #- path: ./mongodb/compose.yml
+  #- path: ./hadoop/compose.yml
+  #- path: ./spark-jupyter/compose.yml
+
+# La red externa se define aquí y en cada sub-compose
+networks:
+  pd-net:
+    external: true
+
