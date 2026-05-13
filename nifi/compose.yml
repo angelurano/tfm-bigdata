@@ -1,5 +1,5 @@
 services:
-  nifi-ingesta:
+  nifi:
     build: .
     image: custom-nifi:1.28
     container_name: nifi-ingesta
@@ -12,28 +12,9 @@ services:
     ports:
       - 18443:8443
     volumes:
-      - ./ingesta:/opt/nifi/nifi-current/conf/templates
+      - ./templates:/opt/nifi/nifi-current/conf/templates
       - ../data:/home/nifi/data
       # - ../hadoop/hadoop-conf-files:/opt/hadoop/conf
-
-  nifi-consumo:
-    build: .
-    image: custom-nifi:1.28
-    container_name: nifi-consumo
-    networks:
-      - pd-net
-    environment:
-      SINGLE_USER_CREDENTIALS_USERNAME: "admin"
-      SINGLE_USER_CREDENTIALS_PASSWORD: "ctsBtRBKHRAx69EqUghvvgEvjnaLjFEB"
-      NIFI_WEB_HTTP_PORT: 8443
-    ports:
-      - 28443:8443
-    volumes:
-      - ./consumo:/opt/nifi/nifi-current/conf/templates
-      - ../data:/home/nifi/data
-      # - ../hadoop/hadoop-conf-files:/opt/hadoop/conf
-    depends_on:
-      - nifi-ingesta
 
 networks:
   pd-net:
